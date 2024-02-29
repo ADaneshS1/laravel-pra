@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,20 +15,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
 Route::get('/home', function () {
+
     return view('home', [
         "judul"=>"HOME"
     ]);
 });
 
 Route::get('/about', function () {
+
     return view('about');
 });
 
 Route::get('/produk', function () {
+
     return view('produk');
 });
 
@@ -40,32 +45,9 @@ Route::get('/blog', function () {
 
 Route::get('post/{slug}', function ($slug) {
 
-    $blogs = [
-        [
-            'judul' => 'judul 1',
-            'penulis' => 'awok',
-            'slug'=>'artikel-pertama',
-            'post' => 'lroeoreolreol'
-        ],
-        [
-            'judul' => 'judul 1',
-            'penulis' => 'awok',
-            'slug'=>'artikel-pertama',
-            'post' => 'lroeoreolreol'
-        ]
-    ];
-
-    $new_post = [];
-
-    foreach($blogs as $post) {
-        if($post['slug']===$slug) {
-            $new_post = $post;
-        }
-    }
-
     return view('postdetail', [
         'metatittle'=>'Post Detail',
-        'post'=>$new_post,
+        'post'=>Post::findWhere($slug)
         // 'judul'=>'Ini Post Detail',
         // 'isi'=>'isi blog',
         // 'slug'=>$slug

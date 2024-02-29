@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Support\Collection;
 
-class Post extends Model
+class Post
 {
     private static $blogs = [
         [
@@ -20,6 +21,22 @@ class Post extends Model
     ];
 
     public static function all(){
-        return self::$blogs;
+        return collect(self::$blogs);
+    }
+
+    public static function findWhere($slug){
+        $posts = static::$blogs;
+        return $posts->firstWhere('slug',$slug);
+    }
+   
+    public static function find($slug) {
+        $posts = self::$blogs;
+        $new_post = [];
+        foreach($posts as $post) {
+            if($post['slug']===$slug) {
+                $new_post = $post;
+            }
+        }
+        return $new_post;
     }
 }
