@@ -25,7 +25,7 @@ class Post
     }
 
     public static function findWhere($slug){
-        $posts = static::$blogs;
+        $posts = static::all();
         return $posts->firstWhere('slug',$slug);
     }
    
