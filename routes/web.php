@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Models\Post;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,20 +38,6 @@ Route::get('/produk', function () {
     return view('produk');
 });
 
-Route::get('/blog', function () {
+Route::get('/blog',[PostController::class,'index']);
 
-    return view('blog', [
-        'post'=> Post::all()
-    ]);
-});
-
-Route::get('post/{slug}', function ($slug) {
-
-    return view('postdetail', [
-        'metatittle'=>'Post Detail',
-        'post'=>Post::findWhere($slug)
-        // 'judul'=>'Ini Post Detail',
-        // 'isi'=>'isi blog',
-        // 'slug'=>$slug
-    ]);
-});
+Route::get('post/{slug}', [PostController::class,'show']);
